@@ -7,3 +7,4 @@ code/naive
 *.aux
 *.out
 results/*.bin
+code/transfer.py

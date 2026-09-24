@@ -50,12 +50,16 @@ for a,v in c['bases'].items():
 text=(P/'paper/multibase_note.tex').read_text()
 for pattern in [r'Paper[~ ]*[4-8]',r'multiplicatively dependent',r'non-?zero limit',r'all 64 non-?square',r'only negative pairs are',r'\bVM\b',r'remote machine',r'gmktec',r'\bjack\b']:
  assert not re.search(pattern,text,re.I),pattern
-# 'significan*' and 'certif*' are allowed only in the single explicit disclaimer sentence
+# These words may appear only inside the two explicit disclaimer sentences below,
+# quoted in full including their negations; each sentence must occur exactly once.
 flat=' '.join(text.split())
-allowed=['or claims that a descriptive score certifies a sign']
+allowed=['There are no independent-pair error bars, null-test conclusions, or claims that a descriptive score certifies a sign.',
+         'This is a description of the recorded sample, not a sign criterion or a rule for bases outside it.']
 scrub=flat
-for a in allowed:scrub=scrub.replace(a,'')
-for pattern in [r'significan',r'certif',r'sign criterion(?! or a rule)']:
+for a in allowed:
+ assert flat.count(a)==1,f'disclaimer sentence altered or duplicated: {a[:50]}'
+ scrub=scrub.replace(a,'')
+for pattern in [r'significan',r'certif',r'sign criterion',r'error bars']:
  assert not re.search(pattern,scrub,re.I),pattern
 for i,line in enumerate(text.splitlines(),1):
  if re.search(r'\d',line):
