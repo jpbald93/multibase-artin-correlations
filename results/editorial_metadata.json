@@ -1,0 +1,104 @@
+{
+ "author": "Joshua Bald",
+ "affiliation": "Independent researcher",
+ "orcid": "0009-0002-1317-6489",
+ "text_license": "CC BY 4.0",
+ "code_license": "MIT",
+ "constants": {
+  "Zero": 0,
+  "One": 1,
+  "Two": 2,
+  "Three": 3,
+  "Four": 4,
+  "Five": 5,
+  "Six": 6,
+  "Seven": 7,
+  "Eight": 8,
+  "Nine": 9,
+  "Ten": 10,
+  "Eleven": 11,
+  "Twelve": 12,
+  "Thirteen": 13,
+  "Fourteen": 14,
+  "Fifteen": 15,
+  "Seventeen": 17,
+  "Nineteen": 19,
+  "TwentyOne": 21,
+  "TwentyThree": 23,
+  "TwentyFour": 24,
+  "TwentyNine": 29,
+  "Sixty": 60,
+  "EightyFour": 84,
+  "OneHundredFive": 105,
+  "EightForty": 840,
+  "Thousand": 1000
+ },
+ "references": [
+  {
+   "key": "hooley",
+   "authors": "C. Hooley",
+   "title": "On Artin's conjecture",
+   "journal": "Journal für die reine und angewandte Mathematik",
+   "volume": "225",
+   "year": "1967",
+   "pages": "209--220",
+   "doi": "10.1515/crll.1967.225.209",
+   "verified_url": "https://api.crossref.org/works/10.1515/crll.1967.225.209"
+  },
+  {
+   "key": "moree",
+   "authors": "P. Moree",
+   "title": "Artin's primitive root conjecture---a survey",
+   "journal": "Integers",
+   "volume": "12",
+   "year": "2012",
+   "pages": "no. 6, 1305--1416",
+   "doi": "10.1515/integers-2012-0043",
+   "verified_url": "https://api.crossref.org/works/10.1515/integers-2012-0043"
+  },
+  {
+   "key": "los",
+   "authors": "R. J. Lemke Oliver and K. Soundararajan",
+   "title": "Unexpected biases in the distribution of consecutive primes",
+   "journal": "Proceedings of the National Academy of Sciences",
+   "volume": "113",
+   "year": "2016",
+   "pages": "no. 31, E4446--E4454",
+   "doi": "10.1073/pnas.1605366113",
+   "verified_url": "https://api.crossref.org/works/10.1073/pnas.1605366113"
+  },
+  {
+   "key": "twz",
+   "authors": "M. Tinková, E. Waxman and M. Zindulka",
+   "title": "Artin twin primes",
+   "journal": "Journal of Number Theory",
+   "volume": "245",
+   "year": "2023",
+   "pages": "203--232",
+   "doi": "10.1016/j.jnt.2022.10.006",
+   "verified_url": "https://api.crossref.org/works/10.1016/j.jnt.2022.10.006"
+  },
+  {
+   "key": "baldexclusion",
+   "authors": "J. Bald",
+   "title": "Quadratic exclusion laws for consecutive Artin primes in arbitrary bases",
+   "journal": "Zenodo preprint (2026)",
+   "doi": "10.5281/zenodo.22865343",
+   "verified_url": "https://api.datacite.org/dois/10.5281/zenodo.22865343"
+  },
+  {
+   "key": "baldconsolidated",
+   "authors": "J. Bald",
+   "title": "Correlations of Artin status among primes: consecutive-prime anticorrelation, cross-base entanglement, and an elementary decomposition",
+   "journal": "Repository manuscript",
+   "url": "https://github.com/jpbald93/artin-correlations",
+   "verified_url": "https://api.github.com/repos/jpbald93/artin-correlations"
+  }
+ ],
+ "ai_models": {
+  "AIAstra": "GPT-6 Astra",
+  "AIOpus": "Claude Opus 5.5 (Anthropic)",
+  "AIPlatform": "the Genspark platform",
+  "RepoLink": "\\url{https://github.com/jpbald93/multibase-artin-correlations}"
+ }
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "base": 3,
+    "p": 5,
+    "q": 7,
+    "in_reported_range": false
+  },
+  {
+    "base": 17,
+    "p": 5,
+    "q": 7,
+    "in_reported_range": false
+  },
+  {
+    "base": 17,
+    "p": 7,
+    "q": 11,
+    "in_reported_range": true
+  }
+]

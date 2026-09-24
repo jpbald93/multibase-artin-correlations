@@ -1,0 +1,456 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,longtable,array,microtype}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{xurl}
+\input{numbers.tex}
+\newtheorem{proposition}{Proposition}
+\newcommand{\A}{\mathcal A}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Var}{\operatorname{Var}}
+\title{Consecutive-prime Artin correlations across squarefree bases:\ a census, a residue-channel reconstruction,\ and lagged cross-base correlations}
+\author{\AuthorName\\\Affiliation\\\small ORCID: \AuthorOrcid}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+This data note records freshly computed primitive-root indicators on consecutive
+prime pairs. A census over the \BaseCount\ squarefree bases from $\Two$ through
+$\BaseMaximum$, with $\LowerPrime\le p<q<\CensusBound$, gives
+\PositiveCount\ positive consecutive-pair associations; the remainder are negative.
+For base $\Fifteen$, extending the computation to $\LargeBound$ gives
+$\delta=\BaseFifteenLargeDelta$, compared with $\BaseFifteenDelta$ at the smaller bound.
+For a selected set of \SelectedCount\ bases, we release the full lagged cross-base
+matrix and reconstruct the same-base associations by combining conditional Artin
+progression densities with measured residue--gap channel frequencies. The ratio of
+reconstructed to empirical association lies between \RatioMinimum\ and
+\RatioMaximum. These frequencies are inputs: this is an empirical-weight
+consistency check, not an independent prediction. An elementary quadratic-character
+argument gives a worked example of a mixed-base obstruction for bases $\Two$ and $\Six$ in either
+order at gaps congruent to $\Ten$ or $\Fourteen$ modulo $\TwentyFour$.
+The numerical results are computations; the displayed obstruction is an elementary
+proof within an existing framework. No asymptotic claim is made.
+\end{abstract}
+
+\section{Scope and relationship to earlier work}
+For an integer base $a$ and a prime $p$, write $\A_a(p)$ for the indicator that
+$a$ is a primitive root modulo $p$; it is zero when $p$ divides $a$.
+Artin's conjecture concerns the density of primes for which this indicator is one.
+Hooley proved the expected density under the relevant generalized Riemann
+hypotheses (GRH)~\cite{hooley}; Moree surveys the density formulas, their
+entanglement corrections, and primitive roots in progressions~\cite{moree}.
+Here the question is finite and empirical: how do the indicators at adjacent
+primes vary across bases, and how much of their association is reproduced by
+single-prime progression rates combined with measured prime transitions?
+
+The distinction between a single-prime density and a consecutive-pair law is
+essential. Lemke Oliver and Soundararajan give a conjectural quantitative
+framework for biases in successive reduced residue classes~\cite{los}.
+Their Hardy--Littlewood-based framework does not make the present measured
+weights into theoretical inputs. Nor does GRH for the individual Artin densities
+supply conditional independence for adjacent prime indicators.
+
+Bald's consolidated manuscript~\cite{baldconsolidated} treats the base-$\Ten$
+consecutive-prime results, their exact residue decomposition, same-prime
+cross-base correlations, and computational usefulness. We refer there rather
+than reproduce those analyses. Bald's quadratic exclusion note~\cite{baldexclusion}
+provides the same-base setting. The additions here are a broader squarefree-base
+census, a uniform multi-base reconstruction, and a matrix in which the two bases
+are attached to \emph{different consecutive primes}. These are dataset extensions,
+not a proposed theory of correlations.
+
+Tinkov\'{a}, Waxman and Zindulka study Artin twin primes~\cite{twz}.
+Their discussion already allows distinct primitive-root bases at distinct shifted
+primes. Thus neither the mixed-base framework nor the necessary quadratic
+nonresidue condition is claimed as new. The small worked example below is
+included to make the arithmetic behind particular matrix entries transparent.
+
+\section{Definitions and exact finite conventions}
+For a cutoff $x$, let $\mathcal P_x$ consist of consecutive rational prime pairs
+$(p,q)$ with $\LowerPrime\le p<q<x$. Consecutiveness is in the full rational
+prime sequence, not in a subsequence selected by primitive-root status or by a
+residue condition. Both endpoints must be below the bound. Give all pairs equal
+weight. For a source base $a$ and a destination base $b$, put
+\[
+ X=\A_a(p),\qquad Y=\A_b(q),\qquad
+ n_{ij}=\#\{(p,q)\in\mathcal P_x:X=i,Y=j\}.
+\]
+Our directional association is
+\begin{align}
+ \delta(a\mathbin{\to}b;x)
+ &=\Pr(Y=\One\mid X=\One)-\Pr(Y=\One\mid X=\Zero)\label{eq:delta}\\
+ &=\frac{n_{\One\One}}{n_{\One\Zero}+n_{\One\One}}
+   -\frac{n_{\Zero\One}}{n_{\Zero\Zero}+n_{\Zero\One}}
+ =\frac{\Cov(X,Y)}{\Var(X)}.\nonumber
+\end{align}
+The marginals are nondegenerate in every reported table. For $a=b$, abbreviate
+this to $\delta_a(x)$. The normalization uses the \emph{source} variance, not a
+symmetric Pearson normalization. In particular, the difference between the two
+orders in the matrix can involve both covariance and marginal normalization.
+
+Adjacent pairs overlap at a prime. We report exact finite counts and descriptive
+summaries only. There are no independent-pair error bars, null-test conclusions,
+or claims that a descriptive score certifies a sign. The two cutoffs for base
+$\Fifteen$ are nested cumulative samples, not independent replications.
+
+The census bases are precisely the squarefree integers in
+$[\Two,\BaseMaximum]$; this is not the set of all nonsquare integers in that
+interval. The selected matrix and reconstruction bases are
+\[
+ \mathcal B=\{\SelectedBases\}.
+\]
+For squarefree positive $a$, the fundamental discriminant and quadratic
+conductor are
+\[
+ D_a=\begin{cases}a,&a\equiv\One\pmod{\Four},\\
+ \Four a,&\text{otherwise},\end{cases}
+ \qquad \chi_a(r)=\left(\frac{D_a}{r}\right).
+\]
+The symbol is the Kronecker symbol, and on odd primes not dividing $a$ it agrees
+with the Legendre symbol of $a$. This convention covers the even conductors
+without treating the character as a Legendre symbol at a composite denominator.
+
+\section{The squarefree-base census}
+There are $\PairCount$ pairs in the main census. Table~\ref{tab:census} gives all
+contingency counts, conductors and associations, allowing the displayed decimal
+values to be checked without rerunning a prime sieve. Exactly \PositiveCount\
+of the \BaseCount\ associations are positive and \NegativeCount\ are negative.
+The positive bases are
+\[
+ \{\PositiveBases\}.
+\]
+Within this finite set their minimum quadratic conductor is
+$\PositiveMinConductor$. This is a description of the recorded sample, not a
+sign criterion or a rule for bases outside it. No fitted character statistic or
+sign predictor is used.
+
+The positive values show why base-$\Ten$ anticorrelation should not be silently
+extended to every base at the same bound. Conversely, positivity at this bound
+says nothing about an eventual sign. A conductor is useful metadata, not by
+itself an explanation of the ordering of all the measured values.
+
+For base $\Fifteen$, the fresh extension has $\LargePairCount$ pairs and gives
+\[
+ \delta_{\Fifteen}(\CensusBound)=\BaseFifteenDelta,
+ \qquad
+ \delta_{\Fifteen}(\LargeBound)=\BaseFifteenLargeDelta.
+\]
+It remains positive and is smaller at the larger cutoff. These two values do
+not determine a decay rate or limiting behavior. In particular, treating the
+larger nested sample as a new independent positive-sign experiment would
+misrepresent how the data were obtained.
+
+\begingroup\small
+\setlength{\tabcolsep}{4pt}
+\input{census_table.tex}
+\endgroup
+
+\section{An empirical-weight residue-channel reconstruction}
+\subsection{Inputs and single-prime rates}
+For each $a\in\mathcal B$, set $M_a=\operatorname{lcm}(D_a,\EightForty)$.
+A channel is the pair $(r,g)$, where $r=p\bmod M_a$ and $g=q-p$ is the
+\emph{exact} gap. Its measured weight is
+\[
+ w_a(r,g)=\frac{\#\{(p,q)\in\mathcal P_x:p\equiv r\pmod{M_a},\ q-p=g\}}
+ {|\mathcal P_x|}.
+\]
+All channel frequencies are computed from the same prime stream used for the
+census. They do not use the primitive-root labels, but they do use the measured
+successor distribution. They must therefore be counted as empirical inputs.
+
+For the squarefree bases considered here, with the conductor contained in the
+modulus, the GRH Artin progression-rate expression can be written as
+\begin{equation}
+ \alpha_a(r)=\mathbf{\One}_{(r,M_a)=\One}\,
+ \mathbf{\One}_{\chi_a(r)=-\One}
+ \prod_{\substack{\ell\mid M_a,\ \ell>\Two\\r\equiv\One\ (\bmod\ell)}}
+ \left(\One-\frac{\One}{\ell}\right)
+ \prod_{\ell\nmid M_a}\left(\One-\frac{\One}{\ell(\ell-\One)}\right).
+ \label{eq:alpha}
+\end{equation}
+Both products run over primes. The first product describes the odd-power
+obstructions whose congruence condition is already fixed by $r$; the quadratic
+condition is written separately. The remaining Euler factors average the
+unfixed obstructions. This is the squarefree-base, conductor-containing case of
+the classical Artin progression formulas, not a formula asserted for arbitrary
+perfect-power bases or arbitrary moduli~\cite{moree}. Averaging~\eqref{eq:alpha} over the reduced classes modulo $M_a$ recovers
+Hooley's density for base $a$, including the entanglement correction that
+arises when $a\equiv\One\pmod{\Four}$, because $\mathbb Q(\sqrt a)$ then lies in
+$\mathbb Q(\zeta_{M_a})$ and the restriction $\chi_a(r)=-\One$ encodes it.
+
+We evaluate the Euler product through $\EulerCutoff$, accumulating with
+$\DensityPrecision$ decimal digits. That arithmetic precision is not a claim
+about the infinite product. If $A_B$ is the truncated Artin product, then
+\[
+ A_B\left(\One-\frac{\One}{B}\right)\le A\le A_B,
+ \qquad B=\EulerCutoff,
+\]
+since the sum of the omitted factors' deficits is at most
+$\sum_{n>B}\One/[n(n-\One)]=\One/B$. Thus a conservative bound for the
+relative omitted-factor error is $\EulerBound$. The saved output contains both
+bounds, and the reconstruction propagates them. The quoted ratio range uses
+only \RatioDigits\ decimal places; fine agreement should not be read beyond
+the precision justified by the product and by the model itself.
+
+\subsection{The contraction, and what it does not test}
+Model I replaces the two endpoint statuses, within a channel, by independent
+Bernoulli variables having rates $\alpha_a(r)$ and $\alpha_a(r+g)$. Define
+\begin{align*}
+ u_a&=\sum_{r,g}w_a(r,g)\alpha_a(r),&
+ v_a&=\sum_{r,g}w_a(r,g)\alpha_a(r+g),\\
+ t_a&=\sum_{r,g}w_a(r,g)\alpha_a(r)\alpha_a(r+g),&
+ \delta_{a,\mathrm{rec}}&=\frac{t_a-u_av_a}{u_a(\One-u_a)}.
+\end{align*}
+The argument of $\alpha_a$ is reduced modulo $M_a$. No empirical Artin marginal
+is substituted into this normalization, and no fitted scale or intercept is used.
+The empirical comparison is exactly~\eqref{eq:delta} on the same pair set.
+
+\begin{table}[htbp]\centering
+\input{reconstruction_table.tex}
+\caption{Model I with empirical residue--gap weights. Ratio means
+$\delta_{a,\mathrm{rec}}/\delta_{a,\mathrm{emp}}$, not predictive accuracy on a
+held-out sample.}\label{tab:reconstruction}
+\end{table}
+
+Table~\ref{tab:reconstruction} gives a ratio range from \RatioMinimum\ to
+\RatioMaximum. The positive base-$\Fifteen$ entry is reconstructed as positive,
+while the other displayed same-base associations are negative. This agreement
+is useful as a consistency check that the measured prime-transition distribution
+and classical single-prime progression rates can account for much of the
+finite-range pattern across these bases.
+
+It is not a Hardy--Littlewood derivation: the gap and residue weights were not
+predicted. It is not a test establishing conditional independence: that
+independence was imposed in forming the product of rates. A small aggregate
+error can conceal compensating within-channel errors. Nor does a good aggregate
+fit bound information carried by the predecessor after conditioning; that is a
+different question treated for base $\Ten$ in~\cite{baldconsolidated}.
+
+Although the raw weights retain exact gaps for transparency, this particular
+contraction uses a gap only through the destination residue. Summing weights
+with the same $(r,r+g\bmod M_a)$ leaves the reconstruction unchanged. The
+exact-gap representation is therefore a data organization, not an additional
+independence mechanism.
+
+\subsection{Finite nonreduced-prime exceptions}
+Formula~\eqref{eq:alpha} assigns zero to nonreduced classes. This is an
+asymptotic progression convention: a prime dividing the modulus can still be
+an Artin prime for the base. In the reported pair range, the channel
+$(r,g)=(\Seven,\Four)$ for base $\Seventeen$ contains a doubly-Artin pair,
+namely $(\FreshExceptionPair)$, even though its reconstructed product rate is
+zero. The fresh stream logs those exact endpoints and the channel array
+independently retains their contribution.
+
+For clarity about the lower endpoint, if the range were enlarged to start at
+$\PairStartOld$, the additional pair $(\EndpointPair)$ would be another such
+exception for base $\Seventeen$ and also an exception for base $\Three$.
+Direct modular-order checks identify all of these finite events. They are not
+violations of a character obstruction: they arise from primes dividing the
+chosen modulus. We do not discard them from the empirical counts or assert
+that every zero-rate channel is empty.
+
+\section{Lagged cross-base correlations}
+The matrix has source $a$ on rows and destination $b$ on columns. Tables
+\ref{tab:matrixleft} and~\ref{tab:matrixright} give all entries; the raw data
+also retain each contingency table, rather than just the rounded associations.
+The diagonal agrees with the selected same-base census values. The
+\OffDiagonalCount\ off-diagonal entries contain \NegativeOffDiagonal\ negative
+values and have mean $\OffMean$.
+
+\begin{table}[htbp]\centering\small
+\input{matrix_1.tex}
+\caption{Lagged matrix, first block of destination bases.
+Entries are $\delta(a\mathbin{\to}b;\CensusBound)$.}\label{tab:matrixleft}
+\end{table}
+\begin{table}[htbp]\centering\small
+\input{matrix_2.tex}
+\caption{Lagged matrix, remaining destination bases. Together with
+Table~\ref{tab:matrixleft}, this is the full square matrix.}\label{tab:matrixright}
+\end{table}
+
+Across unordered pairs of distinct bases, the mean absolute difference between
+opposite directions is $\AsymMean$, with maximum $\AsymMax$ at
+$\{\AsymPair\}$. These are descriptive summaries of the directional statistic.
+The matrix is not the same-prime cross-base matrix: $\A_a(p)$ and $\A_b(q)$
+are measured at different primes, whose residue classes have an oriented
+successor distribution. The same-prime entanglement discussion in
+\cite{baldconsolidated} cannot simply be relabeled to explain these signs.
+
+In particular, an exclusion of joint successes in some gap classes does not
+force the global association to be negative. The global quantity also combines
+all other classes and the source/destination marginals. The mixed pair studied
+next illustrates a local necessary-condition obstruction, not a global sign
+law for the matrix. We make no classification of matrix signs in terms of
+multiplicative relations among bases.
+
+\section{A worked mixed quadratic obstruction}
+For bases $a,b$, let $L=\operatorname{lcm}(\Two,D_a,D_b)$.
+An even shift $g\bmod L$ is called \emph{nonvacuously excluded} when there is at
+least one residue $r$ for which both $r$ and $r+g$ are coprime to $L$, but no such
+residue with
+\[
+ \chi_a(r)=\chi_b(r+g)=-\One.
+\]
+The nonvacuity restriction matters: an odd shift modulo an even modulus cannot
+join two reduced residues, and must not be counted as an informative exclusion.
+These conditions are necessary quadratic conditions for simultaneous primitive
+roots, not sufficient conditions for their existence in all remaining classes.
+
+\begin{proposition}
+Let $p,q>\Three$ be primes, $q-p\equiv\Ten$ or $\Fourteen\pmod{\TwentyFour}$.
+Then it is impossible for $\Two$ to be a primitive root modulo $p$ and $\Six$
+to be a primitive root modulo $q$. The same statement holds with the bases
+interchanged. Consecutiveness is not needed.
+\end{proposition}
+\begin{proof}
+For a prime greater than $\Three$, the reduced residues modulo $\TwentyFour$
+on which $\chi_{\Two}=-\One$ are
+$\Five,\Eleven,\Thirteen,\Nineteen$. Adding either specified gap gives the
+finite table below. Whenever the successor residue is reduced, its
+$\chi_{\Six}$ value is $+\One$, so $\Six$ cannot be a primitive root there.
+If it is not reduced, it cannot be the residue of the stipulated prime $q$.
+This proves the first order. For the reversed order, apply the same residue
+argument to the reversed endpoint residues: negation of the gap interchanges
+$\Ten$ and $\Fourteen$ modulo $\TwentyFour$. The argument depends only on
+residues, not on which endpoint is larger.
+\end{proof}
+
+\begin{table}[htbp]\centering
+\input{proof_table.tex}
+\caption{The complete residue check used in the mixed obstruction.}
+\end{table}
+
+We enumerate all ordered pairs in $\mathcal B$ directly from the character
+values over residues. The only off-diagonal pairs with nonvacuous excluded even
+classes are $(\Two,\Six)$ and $(\Six,\Two)$, each with the two classes in the
+proposition. Exactly \DiagonalHits\ diagonal pairs have classes; the full
+diagonal scan is in Table~\ref{tab:exclusions}. This is an exhaustive statement
+about the selected finite set, not a classification for arbitrary bases.
+
+\begin{table}[htbp]\centering
+\input{exclusion_table.tex}
+\caption{Diagonal part of the finite character scan. An empty set is recorded
+as none; it does not assert existence of Artin pairs in every shift.}
+\label{tab:exclusions}
+\end{table}
+
+In the main prime census, $\LawCount$ pairs have one of the two specified gap
+classes, and there are $\LawViolations$ simultaneous successes in either
+order. Separately, a deliberately naive primitive-root implementation enumerates
+multiplicative orders for both bases at every prime in the range through
+$\SmallBound$. Among $\NaivePairs$ consecutive pairs it finds $\NaiveEligible$
+with the specified classes and $\NaiveViolations$ violations in either order.
+This check validates the implementation against the elementary argument; the
+finite computation is not the proof of the all-primes statement.
+
+The proposition is also formally verified in the Lean proof assistant with Mathlib. The package
+directory \path{lean/} states both orders as
+\path{MixedExclusion.not_primitiveRoot_two_six_of_gap} and
+\path{MixedExclusion.not_primitiveRoot_six_two_of_gap}, with the gap condition
+written as a congruence of residues modulo $\TwentyFour$ and primitive roots
+expressed through Mathlib's \path{IsPrimitiveRoot}. The proof uses Euler's
+criterion, the second supplementary law, quadratic reciprocity for $\Three$ and
+an exhaustive residue check. The checked statements depend only on Lean's
+standard axioms, and the build contains no unproved steps. The formalization
+covers this proposition only, not the computations.
+
+\section{Computation, validation and reproducibility}
+All large enumerations and the residue/reconstruction calculations were run
+fresh on the author's multi-core workstation. The sieve source was transferred as exact
+base-encoded bytes and its cryptographic checksum checked before compilation. The package
+records source checksums, commands, output checksums and runtimes. The main
+runs used \Threads\ OpenMP threads, with approximate census runtimes
+$\MainRuntime$ seconds for the multi-base bound and $\LargeRuntime$ seconds
+for the single-base extension. These are machine-specific execution records,
+not algorithmic speed comparisons.
+
+The C census marks composites in independent half-open integer blocks. Prime
+labels are computed within blocks and the resulting streams are assembled in
+block order, retaining the last prime and its labels across each boundary.
+Thus no halo length or assumed maximum prime gap is needed to recover
+consecutiveness. Only the initial integers below the prime range are specially
+excluded; the first integers of later blocks are sieved normally.
+
+For each prime, distinct factors of $p-\One$ are obtained once. For every base,
+the primitive-root test checks that the base is a unit and that
+$a^{(p-\One)/\ell}\not\equiv\One\pmod p$ for every prime divisor $\ell$ of
+$p-\One$. Modular multiplication uses unsigned double-width integer arithmetic.
+The single-base extension uses the same prime-stream construction and root test.
+The gap arrays have \ChannelSlots\ slots for even gaps up to $\GapCapacity$;
+there is an assertion, not silent overflow clamping. The observed maximum gap
+in the main run is $\MaxGap$.
+
+Before scaling, an independent Python implementation trial-divided
+integers for primality and enumerated complete multiplicative orbits through
+$\ValidationBound$. For block sizes $\ValidationBlocks$, it checked every
+prime label, every same-base and mixed-base count, and every nonzero channel
+cell. This includes boundaries deliberately placed inside the small prime
+range. The same tiny computation on the workstation agreed exactly.
+A separate C orbit-enumeration program, checked on the tiny range, supplies
+the naive mixed-law check; it does not reuse the factor-of-$p-\One$ criterion.
+
+For the character calculation, the Kronecker routine was checked against
+Euler's criterion on small odd primes. The exclusion scan represents reduced
+residue sets and negative-character sets as bitsets and intersects cyclic
+shifts. It enumerates every even shift and tests nonvacuity before testing
+exclusion. The reconstruction reads the saved channel arrays and applies the
+printed formulas without an empirical primitive-root-rate substitution.
+
+The numerical TeX macros, tables and bibliographic identifiers are generated
+by the script \path{code/make_tables.py}, using saved outputs and explicit metadata.
+The raw binary channel files include their base, modulus, gap-slot count and
+pair-count headers; their format is documented in the README. All final
+numerical displays can therefore be rebuilt without a fresh sieve, while the
+source needed for a full resieve is also supplied. Exact counts are primary;
+rounding is confined to generated presentation material.
+
+\section{Interpretation and limitations}
+The note adds a portable finite census and a multi-base comparison, not a new
+mechanism beyond the residue-channel perspective. The same-base positive
+examples prevent an overgeneralization of the base-$\Ten$ behavior. The
+lagged matrix records an observable different from same-prime entanglement.
+The reconstruction separates measured prime-transition frequencies from
+classical single-prime rates, making its empirical inputs explicit.
+
+None of these observations settles the large-cutoff behavior of actual Artin
+indicators. In the separable fixed-modulus model considered in
+\cite{baldconsolidated}, product limiting residue marginals force the modelled
+covariance to vanish: the joint rate is the average of a product of separate
+endpoint functions. The present contraction has exactly that separable form.
+Unequal finite gap weights do not invalidate that elementary observation.
+It is a statement about the restricted model under a limiting residue-law
+assumption, not a proof of an asymptotic for the actual indicators. The
+finite-range data here do not settle that asymptotic question.
+
+A genuine prediction would require weights obtained without the measured
+successor stream, and a justified account of any residual endpoint dependence.
+Increasing a table's size or matching its aggregate covariance does not provide
+either ingredient. We regard the present package as a reproducible data and
+consistency-check supplement to the cited work, with the mixed obstruction as
+an explanatory example.
+
+\section*{Data availability and licences}
+The reproduction package \texttt{reproduction.zip} accompanies this preprint.
+It contains the raw outputs, source programs, generated tables, manuscript,
+build instructions and cryptographic checksum manifests. The same material is
+public at \RepoLink. No deposit identifier is asserted here.
+Text is licensed under \TextLicense; code under \CodeLicense.
+
+\section*{AI assistance}
+Large-language-model assistants, accessed through \AIPlatform, were used as
+follows. \AIAstra\ wrote the computation and analysis code, ran the
+computations, searched the literature and drafted the manuscript. \AIOpus\
+coordinated the work, reviewed the draft and carried out a separate
+adversarial audit of the mathematics, the numbers and the reproduction
+package. That audit included an independent re-implementation of the sieve and
+primitive-root test, whose counts matched those reported here. Claude Opus also
+wrote the Lean formalization of the mixed obstruction. Every number in the
+paper was produced by executing the supplied programs; none was generated by a
+language model. The author directed the work and is responsible for the
+content.
+
+\input{references.tex}
+\end{document}

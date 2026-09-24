@@ -1,0 +1,9 @@
+.lake/
+lean/.lake/
+__pycache__/
+*.pyc
+code/census
+code/naive
+*.aux
+*.out
+results/*.bin

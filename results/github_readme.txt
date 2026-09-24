@@ -1,0 +1,113 @@
+# Correlations of Artin status among primes — consolidated paper
+
+**Paper:** *Correlations of Artin status among primes: consecutive-prime anticorrelation,
+cross-base entanglement, and an elementary decomposition*
+**Author:** Josh Bald (Independent Researcher, Ontario, Canada)
+**Status:** draft, September 2026 — under adversarial audit (Astra + Opus 5.5)
+
+This is a **consolidation** of two earlier preprints — *Correlations between primitive root
+statuses of consecutive primes* and *Cross-base correlations of Artin primes* — plus a **new
+final section** that audits the computational content of the correlations. The consolidation
+was asked for because two thin papers about a −0.014 correlation are a weak submission,
+whereas one paper carrying two proved exclusion laws, an exact decomposition at scale, and a
+measured negative result is a defensible one.
+
+## Contents
+
+**The paper:** [`paper/artin_correlations.pdf`](paper/artin_correlations.pdf) (28 pp).
+
+```
+paper/artin_correlations.pdf / .tex   the paper (named manuscript, 28 pp)
+paper/FRONT.tex                       title, abstract, intro, summary, preliminaries
+paper/SECTION_content.tex             "Computational content: a measured negative"
+paper/DISC.tex                        merged discussion + declarations
+paper/fig_gap_delta.pdf               the gap-profile figure
+submission/                           submission set: named PDF, blind_manuscript.pdf,
+                                      source zip, reproduction zip, blind_supplement.zip
+assemble.py, anonymise.py,            build pipeline (run from the source zip; see below)
+  scrub_blind.py, build_submission.sh, make_figure.py
+code/                                 C censuses, analysis scripts, the audit driver
+results/                              result JSON/logs (Section 15: section15_1e9.json etc.)
+lean/                                 Lean development for the exclusion laws (+ gate.sh)
+reports/                              adversarial audit reports, rounds 1-5
+```
+
+## How the merge was built
+
+`assemble.py` copies the **technical core sections verbatim** from the two source papers and
+stitches in the newly written front matter, data section, audit section and discussion. The
+only edits to copied text are: two section titles, renaming of six colliding `\label`s, one
+self-citation repair, a wording-only discriminant sentence cleanup, and rendering the
+cross-base paper's *set* notation `\mathcal{A}_a` distinctly from the consecutive-prime
+*indicator* `\Art_n`. A numeral-preservation check
+confirms that **all 1,345 numerals in the source blocks survive unaltered** in the merged
+source. Run `python3 assemble.py` to rebuild when the two source papers are available; otherwise
+it uses the shipped assembled TeX, and refuses if that TeX does not contain the current
+`FRONT.tex`/`SECTION_content.tex`/`DISC.tex`. `bash build_submission.sh` is run from the
+**source archive** (`submission/artin_correlations_source.zip`, flat layout), not from a
+checkout of this repository, where the TeX sits in `paper/`.
+
+## Reproduce
+
+```bash
+# paper
+pdflatex artin_correlations && pdflatex artin_correlations && pdflatex artin_correlations
+
+# Lean gate for the exclusion laws (needs the shared Mathlib cache)
+cd lean && ./gate.sh            # -> PASS (28 theorems, standard axioms only)
+
+# the audit-section driver
+cd code
+gcc -O3 -fopenmp -o artin_payoff artin_payoff.c -lm
+./artin_payoff census 1000000000        # census + filter soundness + gap law
+./artin_payoff ce     1000000000        # cross-entropy: correlation vs elementary baseline
+./artin_payoff search3 1000000000000000 300   # timed search: naive vs filtered
+```
+
+## What the paper claims
+
+**Two exclusion laws** (both elementary, both proved, both Lean-checked):
+- consecutive primes: if `g ≡ 20 (mod 40)` then `10` is a quadratic residue for exactly one of
+  `p, p+g`, so they can never both be Artin base 10;
+- same prime: with `d = sqf(ab)`, no prime with `(d|p) = −1` is Artin for both `a` and `b`;
+  if `sqf(c) = sqf(ab)` then no odd prime is Artin for all three.
+
+**Measurements below 10⁹** (exact counts; 50,847,530 consecutive pairs for the
+consecutive-prime statistics): consecutive-prime
+anticorrelation `δ = −0.01414` (Pearson 10,167); cross-base correlation `φ(a,b)` positive for
+64 of 66 pairs. An exact covariance decomposition places 98.7 % / 99.5 % of `δ` between
+joint-residue cells mod 120 / 840 (96.1–99.2 % / 97.8–99.7 % across four weighting conventions);
+conditioning on the fine signature of `p−1` removes 95 % of the mean cross-base correlation.
+
+**A measured negative** (new), limited to the estimators and the search workload tested: the
+predecessor's Artin status adds `0.000009` nats in-sample to the mod-120 joint-residue baseline,
+and a simulation in which statuses depend only on `p mod 840` reproduces that excess without
+predecessor-specific information. No held-out estimator gains beyond residues mod 840. Both exclusion laws are
+computationally redundant (the same-prime law from character multiplicativity, the gap law from
+reciprocity together with it); the quadratic filter expressed by these exclusion laws is the
+elementary non-residue test, which a character-aware implementation already applies and the
+observed conductor-40 channel expresses.
+
+## Evidence tiers
+
+- **proved** — the two exclusion laws (also Lean-checked, 28 theorems, standard axioms only);
+- **verified numerically** — every census statistic, regenerated by the shipped C programs;
+- **conjecture / open** — labelled as such in the text (e.g. the persistence conjecture).
+
+## Audit status
+
+Three rounds of adversarial audit by two independent systems, Astra (`gpt-6-astra`) and
+Opus 5.5 (`claude-opus-5-5`); every report is in `reports/`
+(`AUDIT_*_artin-correlations.md`, `AUDIT_round2_*.md`, `AUDIT_round3_*.md`). Findings were
+verified against code before each change. No audit found an error in a theorem or in a census
+count; the corrections concern the wording and statistics of the computational-content section,
+the bibliography, and packaging.
+
+**Reproducing Section 15.** Fastest: `zcat results/joint_residue_tables_1e9.txt.gz > t.txt &&
+python3 code/section15.py t.txt` reproduces `results/section15_1e9.json` byte for byte (sha256 in
+`results/section15_sha256.txt`). From scratch:
+`code/artin_payoff dump 1000000000 > results/joint_residue_tables_1e9.txt`
+writes the complete cell tables; `python3 code/section15.py results/joint_residue_tables_1e9.txt`
+recomputes and asserts every decomposition and held-out number;
+`code/artin_payoff resnull 1000000000 100` runs the residue-status null
+(`results/resnull_1e9.json`).

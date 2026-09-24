@@ -1,0 +1,9 @@
+DONE limit=1000 pairs=164 seconds=0.127
+DONE limit=1000 pairs=164 seconds=0.361
+DONE limit=1000 pairs=164 seconds=0.140
+DONE limit=1000 pairs=164 seconds=0.127
+PASS all prime labels, 64 tables, 144 matrix cells and 12 channel arrays; block=2, including block boundaries
+PASS all prime labels, 64 tables, 144 matrix cells and 12 channel arrays; block=17, including block boundaries
+PASS all prime labels, 64 tables, 144 matrix cells and 12 channel arrays; block=31, including block boundaries
+PASS all prime labels, 64 tables, 144 matrix cells and 12 channel arrays; block=1000, including block boundaries
+PASS independent trial division/orbit implementation; all tests complete

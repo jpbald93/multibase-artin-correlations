@@ -1,0 +1,38 @@
+Source: https://arxiv.org/abs/2010.15988 (publisher-linked article DOI 10.1016/j.jnt.2022.10.006)
+
+1.4. A Hardy-Littlewood Conjecture for Artin Primes. Let n =
+(n1 , . . . , nk ) denote an integer k-tuple, i.e. an ordered set of k integers,
+and write n ≤ x if ni ≤ x for all 1 ≤ i ≤ k.
+Fix d = (d1 , . . . , dk ) ∈ (Z≥0 )k to be a k-tuple of even integers. We say
+that d is admissible if it does not include the complete residue system of
+any prime p. Let
+D := {n ∈ Nk : ni = n + di for all 1 ≤ i ≤ k, for some odd n ∈ N}
+denote the set of (odd) integer k-tuples with spacing d. Define the prime
+k-tuples (of spacing d) to be the collection
+πd := {p ∈ D : pi = n + di ∈ P for all 1 ≤ i ≤ k}.
+In 1922, Hardy and Littlewood [10] conjectured that in the limit as x → ∞,
+x
+#{p : p ≤ x and p ∈ πd } = S(d) ·
+(1 + o(1)) ,
+(log x)k
+where S(d) is the singular series
+S(d) :=
+
+Y 1 − ωd (p)/p
+p
+
+(1 − 1/p)k
+
+,
+
+ARTIN TWIN PRIMES
+
+5
+
+and where ωd (p) counts the number of distinct residue classes amongst
+d1 , . . . , dk modulo p. Note that S(d) > 0 for any admissible d.
+We wish to study subsets of πd with fixed primitive roots. Fix d = (d1 , . . . , dk )
+to be an admissible k-tuple, and g = (g1 , . . . , gk ) ∈ (Z \ {−1})k to be an
+integer k-tuple such that gi is not a perfect square for any 1 ≤ i ≤ k. We
+define the set of Artin prime k-tuples (of spacing d with respect to g) to be
+πd,g := {p ∈ D : pi = n + di ∈ Pgi for all 1 ≤ i ≤ k} ⊆ πd .

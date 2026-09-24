@@ -1,0 +1,15 @@
+COMMAND python3 code/analysis.py
+95e15a9639f78bccb7fb6409545b0cefdf901cc2b1268e445d64917cef44b229  code/analysis.py
+analysis complete
+real 1.63
+user 1.54
+sys 0.09
+COMMAND OMP_NUM_THREADS=28 ./naive 1000000
+89b5f06097aa9b1433f699f5e5a151fd66926ad3d57a868b4dd7ccf2c4c51771  naive.c
+real 4.65
+user 128.08
+sys 0.00
+e9795ffaa022dfc0eca84aa315ad0df16d9baa590a06fb4ee1c0852a4c11070d  results/exclusions.json
+a2199c32167aa028367b9a16f9ccd56438f62458b387b8a5075949e8a62c58f7  results/reconstruction.json
+10240341388b00821cb848e448d0ccdf96f7625cf24269819204de30b767a11d  results/naive_1e6.json
+COMPLETE
