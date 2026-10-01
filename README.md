@@ -81,3 +81,5 @@ lake exe cache get   # downloads the pinned Mathlib build
 ./gate.sh            # build + no sorry/axiom/native_decide + standard axioms only
 ```
 Expected output: `PASS (4 theorems, standard axioms only)`. The formalization covers the proposition only, not the computations.
+
+`scratch/Satisfiable.lean` gives, for every theorem with hypotheses, a Lean-checked example showing the hypotheses can all be met (compile with `lake env lean scratch/Satisfiable.lean`).
